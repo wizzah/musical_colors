@@ -56,8 +56,9 @@ function draw_svg(note_name, note_octave, rawVelocity) {
     document.body.replaceChild(svgEl, old);
     var draw = SVG(svgEl);
     main_viz = draw;
-    main_viz.opacity((100-rawVelocity)/100);
-    console.log((100-rawVelocity)/100);
+    // abs bruh
+    main_viz.opacity(Math.abs((100-rawVelocity)/100));
+    console.log(Math.abs((100-rawVelocity)/100));
     // var rect = draw.rect(rand_points[0].x, rand_points[0].y);
     var rect = draw.rect(rawVelocity, rand_points[0].y);
     // console.log(note_name, note_octave, notes_dict[note_name][0], octave_dict[note_octave][0]);
@@ -108,7 +109,7 @@ WebMidi.enable(function (err) {
         function(e) {
             //modify opacity just to see effect
             // console.log(SVG.get(main_viz));
-            edit_opac((100-e.data[1])/100);
+            edit_opac(Math.abs((100-e.data[1])/100));
             // draw_svg(e.note.name, e.note.octave, e.rawVelocity);
         }
     );
